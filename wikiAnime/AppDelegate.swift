@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  wikiAnime
 //
-//  Created by Sebas's Mac on 1/11/22.
+//  Created by Sebastian Güiza on 1/11/22.
 //
 
 import UIKit

@@ -13,6 +13,8 @@
 		B782B20F29114940007A3F86 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B782B20D29114940007A3F86 /* Main.storyboard */; };
 		B782B21129114945007A3F86 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B782B21029114945007A3F86 /* Assets.xcassets */; };
 		B782B21429114945007A3F86 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B782B21229114945007A3F86 /* LaunchScreen.storyboard */; };
+		B782B23D29116E1E007A3F86 /* SerieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B782B23B29116E1E007A3F86 /* SerieCell.swift */; };
+		B782B23E29116E1E007A3F86 /* SerieCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B782B23C29116E1E007A3F86 /* SerieCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		B782B21029114945007A3F86 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B782B21329114945007A3F86 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B782B21529114945007A3F86 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B782B23B29116E1E007A3F86 /* SerieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerieCell.swift; sourceTree = "<group>"; };
+		B782B23C29116E1E007A3F86 /* SerieCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SerieCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,8 @@
 				B782B20929114940007A3F86 /* SceneDelegate.swift */,
 				B782B20B29114940007A3F86 /* ViewController.swift */,
 				B782B20D29114940007A3F86 /* Main.storyboard */,
+				B782B23B29116E1E007A3F86 /* SerieCell.swift */,
+				B782B23C29116E1E007A3F86 /* SerieCell.xib */,
 				B782B21029114945007A3F86 /* Assets.xcassets */,
 				B782B21229114945007A3F86 /* LaunchScreen.storyboard */,
 				B782B21529114945007A3F86 /* Info.plist */,
@@ -127,6 +133,7 @@
 			files = (
 				B782B21429114945007A3F86 /* LaunchScreen.storyboard in Resources */,
 				B782B21129114945007A3F86 /* Assets.xcassets in Resources */,
+				B782B23E29116E1E007A3F86 /* SerieCell.xib in Resources */,
 				B782B20F29114940007A3F86 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -140,6 +147,7 @@
 			files = (
 				B782B20C29114940007A3F86 /* ViewController.swift in Sources */,
 				B782B20829114940007A3F86 /* AppDelegate.swift in Sources */,
+				B782B23D29116E1E007A3F86 /* SerieCell.swift in Sources */,
 				B782B20A29114940007A3F86 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
