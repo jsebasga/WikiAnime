@@ -13,13 +13,11 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var seriesTableView: UITableView!
     
-    let animes = ["Bleach","One Piece","Naruto","Boku no Hero","Doctor Stone","FMB","Spy x Family","Jujutsu Kaisen","Chainsawman","Shingeky no Kyojin"]
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         seriesTableView.dataSource = self
         
-        seriesTableView.register(UINib(nibName: "SerieCell", bundle: nil),forCellReuseIdentifier: "ReusableCell")
+        seriesTableView.register(UINib(nibName: K.cellNibName, bundle: nil),forCellReuseIdentifier: K.cellIdentifier)
     }
 }
 
@@ -28,13 +26,13 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return animes.count
+        return K.animes.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ReusableCell", for: indexPath) as! SerieCell
-        cell.titleLabel.text = animes[indexPath.row]
-        cell.subtitleLabel.text = animes[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! SerieCell
+        cell.titleLabel.text = K.animes[indexPath.row]
+        cell.subtitleLabel.text = K.animes[indexPath.row]
         
         return cell
     }
