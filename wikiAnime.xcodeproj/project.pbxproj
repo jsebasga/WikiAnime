@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B734ED6A2912961A00870433 /* Contants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B734ED692912961A00870433 /* Contants.swift */; };
 		B734ED6C291296FC00870433 /* SerieManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B734ED6B291296FC00870433 /* SerieManager.swift */; };
+		B734ED722912B18B00870433 /* SerieData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B734ED712912B18B00870433 /* SerieData.swift */; };
 		B782B20829114940007A3F86 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B782B20729114940007A3F86 /* AppDelegate.swift */; };
 		B782B20A29114940007A3F86 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B782B20929114940007A3F86 /* SceneDelegate.swift */; };
 		B782B20C29114940007A3F86 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B782B20B29114940007A3F86 /* ViewController.swift */; };
@@ -22,6 +23,7 @@
 /* Begin PBXFileReference section */
 		B734ED692912961A00870433 /* Contants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contants.swift; sourceTree = "<group>"; };
 		B734ED6B291296FC00870433 /* SerieManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerieManager.swift; sourceTree = "<group>"; };
+		B734ED712912B18B00870433 /* SerieData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerieData.swift; sourceTree = "<group>"; };
 		B782B20429114940007A3F86 /* wikiAnime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wikiAnime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B782B20729114940007A3F86 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B782B20929114940007A3F86 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 			children = (
 				B734ED692912961A00870433 /* Contants.swift */,
 				B734ED6B291296FC00870433 /* SerieManager.swift */,
+				B734ED712912B18B00870433 /* SerieData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -177,6 +180,7 @@
 			files = (
 				B734ED6C291296FC00870433 /* SerieManager.swift in Sources */,
 				B782B20C29114940007A3F86 /* ViewController.swift in Sources */,
+				B734ED722912B18B00870433 /* SerieData.swift in Sources */,
 				B782B20829114940007A3F86 /* AppDelegate.swift in Sources */,
 				B734ED6A2912961A00870433 /* Contants.swift in Sources */,
 				B782B23D29116E1E007A3F86 /* SerieCell.swift in Sources */,

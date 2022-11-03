@@ -11,6 +11,4 @@ struct K {
     
     static let cellIdentifier = "ReusableCell"
     static let cellNibName = "SerieCell"
-    static let animes = ["Bleach","One Piece","Naruto","Boku no Hero","Doctor Stone","FMB","Spy x Family","Jujutsu Kaisen","Chainsawman","Shingeky no Kyojin"]
-
 }
