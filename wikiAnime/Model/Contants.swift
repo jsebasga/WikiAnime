@@ -11,4 +11,5 @@ struct K {
     
     static let cellIdentifier = "ReusableCell"
     static let cellNibName = "SerieCell"
+    static let goToDetail = "goToDetail"
 }

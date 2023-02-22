@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct AnimeData: Codable{
+struct AnimesListData: Codable{
     
-    let data: [SerieData]
+    let data: [Anime]
 }
 
-struct SerieData: Codable {
+struct Anime: Codable {
     
     let id: String?
     let type: String?

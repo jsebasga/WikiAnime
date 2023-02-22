@@ -7,19 +7,19 @@
 
 import Foundation
 
-protocol SerieManagerDelegate {
+protocol ApiManagerDelegate {
     
-    func didGetSeries(series: [SerieData])
+    func didGetSeries(series: [Anime])
     func didFailWithError(error: Error)
 }
 
-struct SerieManager {
+struct ApiManager {
     
-    let serieURL = "https://kitsu.io/api/edge/anime"
+    let serieURL = "https://kitsu.io/api/edge/anime?page[limit]=10&page[offset]=0"
     
-    var delegate: SerieManagerDelegate?
+    var delegate: ApiManagerDelegate?
     
-    func performRequest(){
+    func getAnimesList(){
         
         if let url = URL(string: serieURL){
             
@@ -36,7 +36,7 @@ struct SerieManager {
                 //Si data no es nulo, guarde el valor en safeData
                 if let safeData = data {
                     
-                    if let serie:AnimeData = self.parseJson(safeData){
+                    if let serie:AnimesListData = self.parseJson(safeData){
                         self.delegate?.didGetSeries(series: serie.data)
                     }
                 }
@@ -46,12 +46,12 @@ struct SerieManager {
         }
     }
     
-    func parseJson(_ serieJSON: Data) -> AnimeData? {
+    func parseJson(_ serieJSON: Data) -> AnimesListData? {
         
         let decoder = JSONDecoder()
         
         do {
-            let animeData = try decoder.decode(AnimeData.self, from: serieJSON)
+            let animeData = try decoder.decode(AnimesListData.self, from: serieJSON)
             
             return animeData
             

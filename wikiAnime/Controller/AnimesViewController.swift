@@ -9,27 +9,30 @@ import UIKit
 
 //MARK: - UIViewController
 
-class ViewController: UIViewController {
+class AnimesViewController: UIViewController {
     
     @IBOutlet weak var seriesTableView: UITableView!
     
-    var serieManager = SerieManager()
-    var animeSeries: [SerieData] = []
+    var serieManager = ApiManager()
+    var animeSeries: [Anime] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        seriesTableView.delegate = self
         seriesTableView.dataSource = self
         seriesTableView.register(UINib(nibName: K.cellNibName, bundle: nil),forCellReuseIdentifier: K.cellIdentifier)
         
+        title = "WikiAnime"
         serieManager.delegate = self
-        serieManager.performRequest()
+        serieManager.getAnimesList()
+        
     }
 }
 
 //MARK: - UITableViewDataSource
 
-extension ViewController: UITableViewDataSource {
+extension AnimesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return animeSeries.count
@@ -38,6 +41,8 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! SerieCell
         let animeSerie = animeSeries[indexPath.row]
+        let idSeries = animeSerie.id
+        print (idSeries)
         
         if let safeTinyImage = animeSerie.attributes?.posterImage?.tiny{
             
@@ -53,8 +58,8 @@ extension ViewController: UITableViewDataSource {
 
 //MARK: - SerieManagerDelegate
 
-extension ViewController: SerieManagerDelegate{
-    func didGetSeries(series: [SerieData]) {
+extension AnimesViewController: ApiManagerDelegate{
+    func didGetSeries(series: [Anime]) {
         
         animeSeries = series
         DispatchQueue.main.async {
@@ -83,5 +88,26 @@ extension UIImageView {
                 }
             }
         }
+    }
+}
+
+//MARK: - UITableViewDelegate
+
+extension AnimesViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        //let animeSerie = animeSeries[indexPath.row]
+        
+        performSegue(withIdentifier: K.goToDetail , sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let destinationVC = segue.destination as! DetailViewController
+        
+        if let indexPath = seriesTableView.indexPathForSelectedRow {
+            destinationVC.serieId = animeSeries[indexPath.row].id
+         }
     }
 }
