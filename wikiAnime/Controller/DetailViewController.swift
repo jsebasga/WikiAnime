@@ -25,46 +25,116 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //TODOS
-        // 1. Crear objeto clase DetailSerieData
-        // 2. Llenar los campos del objetos (Dummie)
+        var serieManager = ApiManager()
         
-        let coverImage: CoverImage = CoverImage(
-            original: "https://media.kitsu.io/anime/12/cover_image/21ecb556255bd46b95aea4779d19789f.jpg")
-        
-        let detailAttributes: DetailAttributes = DetailAttributes(
-            synopsis: "Gol D. Roger was known as the \"Pirate King,\" the strongest and most infamous being to have sailed the Grand Line. The capture and death of Roger by the World Government brought a change throughout the world. His last words before his death revealed the existence of the greatest treasure in the world, One Piece. It was this revelation that brought about the Grand Age of Pirates, men who dreamed of finding One Piece—which promises an unlimited amount of riches and fame—and quite possibly the pinnacle of glory and the title of the Pirate King.\nEnter Monkey D. Luffy, a 17-year-old boy who defies your standard definition of a pirate. Rather than the popular persona of a wicked, hardened, toothless pirate ransacking villages for fun, Luffy’s reason for being a pirate is one of pure wonder: the thought of an exciting adventure that leads him to intriguing people and ultimately, the promised treasure. Following in the footsteps of his childhood hero, Luffy and his crew travel across the Grand Line, experiencing crazy adventures, unveiling dark mysteries and battling strong enemies, all in order to reach the most coveted of all fortunes—One Piece.\n[Written by MAL Rewrite]",
-            canonicalTitle: "One Piece",
-            startDate: "20-10-1999",
-            endDate: "No se sabe",
-            nextRelease: "El Domingo",
-            status: "En emision",
-            episodeCount: 1024,
-            episodeLength: 25,
-            coverImage: coverImage)
-        
-        let serie: Serie = Serie(
-            attributes: detailAttributes)
-        
-        let detailSerieData: DetailSerieData = DetailSerieData(
-            data: serie)
-        
-        // 3. Crear diseño de vista
-        
-        // 4. Mostrar los datos del Dummie en la vista
-        
-        
-        coverImageOriginal.loadFrom(URLAddress: "https://media.kitsu.io/anime/12/cover_image/21ecb556255bd46b95aea4779d19789f.jpg")
-        
-        title = detailSerieData.data.attributes.canonicalTitle
-        startDate.text = detailSerieData.data.attributes.startDate
-        endDate.text = detailSerieData.data.attributes.endDate
-        serieStatus.text = detailSerieData.data.attributes.status
-        nextRelease.text = detailSerieData.data.attributes.nextRelease
-        numberEpisode.text = "1024 Espisodes"
-        duration.text = "25 minutes"
-        serieDescription.text = detailSerieData.data.attributes.synopsis
+        serieManager.delegate = self
+        if let animeSerieId = serieId {
+            
+            serieManager.getAnimeSerie(serieId: animeSerieId)
+            print("******\(animeSerieId)")
+        }
+    
+    }
+    
+}
+
+extension DetailViewController: ApiManagerDelegate {
+    
+    // TODOS Remove
+    func didGetSeries(series: [Anime]) {
         
     }
     
+    func didGetSerie(serie: Serie) {
+        
+        DispatchQueue.main.async {
+            
+            if let coverImage = serie.attributes.coverImage?.original {
+                
+                self.coverImageOriginal.loadFrom(URLAddress: coverImage)
+                
+            } else {
+                
+                if let posterImage = serie.attributes.posterImage?.tiny {
+                    
+                    self.coverImageOriginal.loadFrom(URLAddress: posterImage)
+                }
+            }
+            
+            if let serieTitle = serie.attributes.canonicalTitle {
+                
+                self.title = serieTitle
+                
+            }   else {
+                
+                self.title = K.noInformation
+            }
+            
+            if let initialDate = serie.attributes.startDate {
+                
+                self.startDate.text = initialDate
+                
+            } else {
+                
+                self.startDate.text = K.noInformation
+            }
+            
+            if let animeStatus = serie.attributes.status {
+                
+                self.serieStatus.text = animeStatus
+                
+            } else {
+                
+                self.serieStatus.text = K.noInformation
+            }
+            
+            if let animeDescription = serie.attributes.synopsis {
+                
+                self.serieDescription.text = animeDescription
+                
+            } else {
+                
+                self.serieDescription.text = K.noInformation
+            }
+            
+            if let finalDate = serie.attributes.endDate {
+                
+                self.endDate.text = finalDate
+            } else {
+                
+                self.endDate.text = K.finalDate
+            }
+            
+            if let nextEpisode = serie.attributes.nextRelease{
+                
+                self.nextRelease.text = nextEpisode
+            } else {
+                
+                self.nextRelease.text = K.nextRelease
+            }
+            
+            if let espisodeNumber = serie.attributes.episodeCount{
+                
+                self.numberEpisode.text = String("\(espisodeNumber) espisodes")
+                
+            }   else {
+                
+                self.numberEpisode.text = K.noInformation
+            }
+            
+            if let serieDuration = serie.attributes.episodeLength{
+                
+                self.duration.text = String("\(serieDuration) minutes")
+                
+            } else {
+                
+                self.numberEpisode.text = K.noInformation
+            }
+        }
+    }
+    
+    func didFailWithError(error: Error) {
+        
+        print(error)
+    }
 }

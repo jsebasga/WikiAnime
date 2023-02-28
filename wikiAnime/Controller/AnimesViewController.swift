@@ -41,8 +41,7 @@ extension AnimesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! SerieCell
         let animeSerie = animeSeries[indexPath.row]
-        let idSeries = animeSerie.id
-        print (idSeries)
+    
         
         if let safeTinyImage = animeSerie.attributes?.posterImage?.tiny{
             
@@ -59,6 +58,12 @@ extension AnimesViewController: UITableViewDataSource {
 //MARK: - SerieManagerDelegate
 
 extension AnimesViewController: ApiManagerDelegate{
+    
+    //TODO, Remove
+    func didGetSerie(serie: Serie) {
+        
+    }
+    
     func didGetSeries(series: [Anime]) {
         
         animeSeries = series
@@ -96,8 +101,6 @@ extension UIImageView {
 extension AnimesViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        //let animeSerie = animeSeries[indexPath.row]
         
         performSegue(withIdentifier: K.goToDetail , sender: self)
     }
