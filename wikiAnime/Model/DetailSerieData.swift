@@ -28,9 +28,15 @@ struct DetailAttributes: Codable{
     let episodeCount: Int?
     let episodeLength: Int?
     let coverImage: CoverImage?
+    let posterImage: PosterImg?
 }
 
 struct CoverImage: Codable {
 
     let original: String?
+}
+
+struct PosterImg: Codable {
+    
+    let tiny: String?
 }

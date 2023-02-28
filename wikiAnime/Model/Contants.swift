@@ -12,4 +12,7 @@ struct K {
     static let cellIdentifier = "ReusableCell"
     static let cellNibName = "SerieCell"
     static let goToDetail = "goToDetail"
+    static let finalDate = "In Broadcast"
+    static let nextRelease = "Finished"
+    static let noInformation = " "
 }
