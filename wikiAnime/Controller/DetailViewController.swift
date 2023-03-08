@@ -10,7 +10,6 @@ import SDWebImage
 
 class DetailViewController: UIViewController {
     
-    @IBOutlet weak var serieName: UILabel!
     @IBOutlet weak var startDate: UILabel!
     @IBOutlet weak var endDate: UILabel!
     @IBOutlet weak var serieStatus: UILabel!
