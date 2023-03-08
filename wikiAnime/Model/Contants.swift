@@ -13,6 +13,4 @@ struct K {
     static let cellNibName = "SerieCell"
     static let goToDetail = "goToDetail"
     static let finalDate = "In Broadcast"
-    static let nextRelease = "Finished"
-    static let noInformation = " "
 }

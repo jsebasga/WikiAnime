@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class DetailViewController: UIViewController {
     
@@ -20,121 +21,98 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var coverImageOriginal: UIImageView!
     
     var serieId: String?
-    
+    var serieManager = ApiManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var serieManager = ApiManager()
-        
-        serieManager.delegate = self
         if let animeSerieId = serieId {
             
-            serieManager.getAnimeSerie(serieId: animeSerieId)
+            //serieManager.getAnimeSerie(serieId: animeSerieId)
             print("******\(animeSerieId)")
         }
-    
+        
+        getSerieDetail()
     }
     
-}
-
-extension DetailViewController: ApiManagerDelegate {
-    
-    // TODOS Remove
-    func didGetSeries(series: [Anime]) {
+    func getSerieDetail(){
         
-    }
-    
-    func didGetSerie(serie: Serie) {
-        
-        DispatchQueue.main.async {
+        if let animeId = serieId {
             
-            if let coverImage = serie.attributes.coverImage?.original {
+            serieManager.getAnimeSerie(serieId: animeId) { detailSerieData in
                 
-                self.coverImageOriginal.loadFrom(URLAddress: coverImage)
+                print("*******\(detailSerieData)")
+                self.showSerie(serie: detailSerieData.data)
                 
-            } else {
+            } failure: { error in
                 
-                if let posterImage = serie.attributes.posterImage?.tiny {
-                    
-                    self.coverImageOriginal.loadFrom(URLAddress: posterImage)
-                }
-            }
-            
-            if let serieTitle = serie.attributes.canonicalTitle {
-                
-                self.title = serieTitle
-                
-            }   else {
-                
-                self.title = K.noInformation
-            }
-            
-            if let initialDate = serie.attributes.startDate {
-                
-                self.startDate.text = initialDate
-                
-            } else {
-                
-                self.startDate.text = K.noInformation
-            }
-            
-            if let animeStatus = serie.attributes.status {
-                
-                self.serieStatus.text = animeStatus
-                
-            } else {
-                
-                self.serieStatus.text = K.noInformation
-            }
-            
-            if let animeDescription = serie.attributes.synopsis {
-                
-                self.serieDescription.text = animeDescription
-                
-            } else {
-                
-                self.serieDescription.text = K.noInformation
-            }
-            
-            if let finalDate = serie.attributes.endDate {
-                
-                self.endDate.text = finalDate
-            } else {
-                
-                self.endDate.text = K.finalDate
-            }
-            
-            if let nextEpisode = serie.attributes.nextRelease{
-                
-                self.nextRelease.text = nextEpisode
-            } else {
-                
-                self.nextRelease.text = K.nextRelease
-            }
-            
-            if let espisodeNumber = serie.attributes.episodeCount{
-                
-                self.numberEpisode.text = String("\(espisodeNumber) espisodes")
-                
-            }   else {
-                
-                self.numberEpisode.text = K.noInformation
-            }
-            
-            if let serieDuration = serie.attributes.episodeLength{
-                
-                self.duration.text = String("\(serieDuration) minutes")
-                
-            } else {
-                
-                self.numberEpisode.text = K.noInformation
+                print("******\(error)")
             }
         }
     }
     
-    func didFailWithError(error: Error) {
+    func showSerie(serie:Serie){
         
-        print(error)
+        //Valida coverImage
+        if let coverImage = serie.attributes.coverImage?.original {
+            
+            self.coverImageOriginal.sd_setImage(with: URL(string: coverImage))
+            
+        } else if let posterImage = serie.attributes.posterImage?.tiny {
+            
+            self.coverImageOriginal.sd_setImage(with: URL(string: posterImage))
+        }
+        
+        //Valida title
+        if let serieTitle = serie.attributes.canonicalTitle {
+            
+            self.title = serieTitle
+        }
+        
+        //Valida initialDate
+        if let initialDate = serie.attributes.startDate {
+            
+            self.startDate.text = initialDate
+        }
+        
+        //Valida finalDate
+        if let finalDate = serie.attributes.endDate {
+            
+            self.endDate.text = finalDate
+            
+        } else {
+            
+            self.endDate.text = K.finalDate
+        }
+        
+        //Valida status
+        if let animeStatus = serie.attributes.status {
+            
+            self.serieStatus.text = animeStatus
+        }
+        
+        //Valida description
+        if let animeDescription = serie.attributes.synopsis {
+            
+            self.serieDescription.text = animeDescription
+        }
+        
+        //Valida nextRelease
+        if let nextEpisode = serie.attributes.nextRelease {
+            
+            self.nextRelease.text = nextEpisode
+        }
+        
+        //Valida numberEpisode
+        if let espisodeNumber = serie.attributes.episodeCount {
+            
+            self.numberEpisode.text = String("\(espisodeNumber) espisodes")
+        }
+        
+        // Valida duration
+        if let serieDuration = serie.attributes.episodeLength {
+            
+            self.duration.text = String("\(serieDuration) minutes")
+        }
     }
 }

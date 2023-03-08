@@ -6,111 +6,51 @@
 //
 
 import Foundation
-
-protocol ApiManagerDelegate {
-    
-    func didGetSeries(series: [Anime])
-    func didGetSerie(serie: Serie)
-    func didFailWithError(error: Error)
-}
+import Alamofire
 
 struct ApiManager {
     
     let animesListURL = "https://kitsu.io/api/edge/anime/"
     
-    var delegate: ApiManagerDelegate?
+    private let kStatusOk = 200...299
     
-    func getAnimesList(){
+    func getAnimesList(success: @escaping (_ animeData:AnimesListData) -> (),
+                       failure: @escaping(_ error: Error?) -> ()) {
         
-        if let url = URL(string: animesListURL){
-            
-            let session = URLSession(configuration: .default)
-            
-            let task = session.dataTask(with: url) { data, response, error in
+        let url = animesListURL
+        
+        AF.request(url, method: .get)
+            .validate(statusCode: kStatusOk)
+            .responseDecodable (of: AnimesListData.self) { response in
                 
-                if let safeError = error {
-                    
-                    self.delegate?.didFailWithError(error: safeError)
-                    return
+                if let anime = response.value {
+                    success(anime)
                 }
                 
-                //Si data no es nulo, guarde el valor en safeData
-                if let safeData = data {
-                    
-                    if let serie:AnimesListData = self.parseJson(safeData){
-                        self.delegate?.didGetSeries(series: serie.data)
-                    }
+                if let responseError = response.error {
+                    failure(response.error)
                 }
             }
-            
-            task.resume()
-        }
     }
     
-    func parseJson(_ serieJSON: Data) -> AnimesListData? {
-        
-        let decoder = JSONDecoder()
-        
-        do {
-            let animeData = try decoder.decode(AnimesListData.self, from: serieJSON)
-            
-            return animeData
-            
-        } catch {
-            
-            delegate?.didFailWithError(error: error)
-            return nil
-        }
-    }
-    
-    func getAnimeSerie(serieId: String){
+    func getAnimeSerie(serieId: String,
+                       success: @escaping(_ serieData:DetailSerieData) -> (),
+                       failure: @escaping(_ error: Error?) -> ()) {
         
         let serieURL = "\(animesListURL)\(serieId)"
         print(serieURL)
         
-        if let url = URL(string: serieURL){
-            
-            let session = URLSession(configuration: .default)
-            
-            let task = session.dataTask(with: url) { data, response, error in
+        AF.request(serieURL, method: .get)
+            .validate(statusCode: kStatusOk)
+            .responseDecodable (of: DetailSerieData.self) { response in
                 
-                if let safeError = error {
-                    
-                    self.delegate?.didFailWithError(error: safeError)
-                    return
+                if let serie = response.value {
+                    success(serie)
                 }
                 
-                //Si data no es nulo, guarde el valor en safeData
-                if let safeData = data {
-                    
-                    //Si no es nulo el parseSerieJSon (este transforma los datos de JSon a Swift), se guarda en la constante serie
-                    if let serie:DetailSerieData = self.parseSerieJson(safeData){
-                        
-                        // Notificacion al delegado que ya esta el objeto serie
-                        self.delegate?.didGetSerie(serie: serie.data)
-                        
-                        print(serie)
-                    }
+                if let responseError = response.error {
+                    failure(response.error)
                 }
             }
-            
-            task.resume()
-        }
-    }
-    
-    func parseSerieJson(_ serieJSON: Data) -> DetailSerieData? {
-        
-        let decoder = JSONDecoder()
-        
-        do {
-            let animeData = try decoder.decode(DetailSerieData.self, from: serieJSON)
-            
-            return animeData
-            
-        } catch {
-            
-            delegate?.didFailWithError(error: error)
-            return nil
-        }
     }
 }

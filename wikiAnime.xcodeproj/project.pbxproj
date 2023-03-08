@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		031C0FE492DAE1F691B2D24E /* Pods_wikiAnime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38C6A08B77FA5F2453432820 /* Pods_wikiAnime.framework */; };
 		B734ED6A2912961A00870433 /* Contants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B734ED692912961A00870433 /* Contants.swift */; };
 		B734ED6C291296FC00870433 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B734ED6B291296FC00870433 /* ApiManager.swift */; };
 		B734ED722912B18B00870433 /* AnimesListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B734ED712912B18B00870433 /* AnimesListData.swift */; };
@@ -23,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		38C6A08B77FA5F2453432820 /* Pods_wikiAnime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_wikiAnime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FBD7BB7F03CEAF35E41B0CD /* Pods-wikiAnime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wikiAnime.release.xcconfig"; path = "Target Support Files/Pods-wikiAnime/Pods-wikiAnime.release.xcconfig"; sourceTree = "<group>"; };
 		B734ED692912961A00870433 /* Contants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contants.swift; sourceTree = "<group>"; };
 		B734ED6B291296FC00870433 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		B734ED712912B18B00870433 /* AnimesListData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimesListData.swift; sourceTree = "<group>"; };
@@ -38,6 +41,7 @@
 		B782B23B29116E1E007A3F86 /* SerieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerieCell.swift; sourceTree = "<group>"; };
 		B782B23C29116E1E007A3F86 /* SerieCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SerieCell.xib; sourceTree = "<group>"; };
 		B7F1EEB029362D5800DFF139 /* DetailSerieData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSerieData.swift; sourceTree = "<group>"; };
+		E1D231ED3EF5EC45202F5C3B /* Pods-wikiAnime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wikiAnime.debug.xcconfig"; path = "Target Support Files/Pods-wikiAnime/Pods-wikiAnime.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,12 +49,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				031C0FE492DAE1F691B2D24E /* Pods_wikiAnime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7D6425F96CCCA7F4FF046676 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				38C6A08B77FA5F2453432820 /* Pods_wikiAnime.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B734ED662912928E00870433 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +99,8 @@
 			children = (
 				B782B20629114940007A3F86 /* wikiAnime */,
 				B782B20529114940007A3F86 /* Products */,
+				E65A0F69227DC54DB18DE590 /* Pods */,
+				7D6425F96CCCA7F4FF046676 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -112,6 +127,16 @@
 			path = wikiAnime;
 			sourceTree = "<group>";
 		};
+		E65A0F69227DC54DB18DE590 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E1D231ED3EF5EC45202F5C3B /* Pods-wikiAnime.debug.xcconfig */,
+				4FBD7BB7F03CEAF35E41B0CD /* Pods-wikiAnime.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -119,9 +144,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B782B21829114945007A3F86 /* Build configuration list for PBXNativeTarget "wikiAnime" */;
 			buildPhases = (
+				08CB6662223ED5518B2F4DC4 /* [CP] Check Pods Manifest.lock */,
 				B782B20029114940007A3F86 /* Sources */,
 				B782B20129114940007A3F86 /* Frameworks */,
 				B782B20229114940007A3F86 /* Resources */,
+				9150A495E90A3062DE39F0BF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -178,6 +205,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		08CB6662223ED5518B2F4DC4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-wikiAnime-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9150A495E90A3062DE39F0BF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-wikiAnime/Pods-wikiAnime-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-wikiAnime/Pods-wikiAnime-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-wikiAnime/Pods-wikiAnime-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B782B20029114940007A3F86 /* Sources */ = {
@@ -334,6 +403,7 @@
 		};
 		B782B21929114945007A3F86 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E1D231ED3EF5EC45202F5C3B /* Pods-wikiAnime.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -363,6 +433,7 @@
 		};
 		B782B21A29114945007A3F86 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4FBD7BB7F03CEAF35E41B0CD /* Pods-wikiAnime.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

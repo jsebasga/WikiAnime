@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import SDWebImage
+import Alamofire
 
 //MARK: - UIViewController
 
@@ -24,9 +26,21 @@ class AnimesViewController: UIViewController {
         seriesTableView.register(UINib(nibName: K.cellNibName, bundle: nil),forCellReuseIdentifier: K.cellIdentifier)
         
         title = "WikiAnime"
-        serieManager.delegate = self
-        serieManager.getAnimesList()
+        getAnimesList()
+    }
+    
+    func getAnimesList(){
         
+        serieManager.getAnimesList { animesListData in
+            
+            print("*******\(animesListData)")
+            self.animeSeries = animesListData.data
+            self.seriesTableView.reloadData()
+            
+        } failure: { error in
+            
+            print("******error\(error)")
+        }
     }
 }
 
@@ -41,58 +55,16 @@ extension AnimesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! SerieCell
         let animeSerie = animeSeries[indexPath.row]
-    
         
-        if let safeTinyImage = animeSerie.attributes?.posterImage?.tiny{
+        if let safeTinyImage = animeSerie.attributes?.posterImage?.tiny {
             
-            cell.posterImage.loadFrom(URLAddress: safeTinyImage)
+            cell.posterImage.sd_setImage(with: URL(string: safeTinyImage))
         }
         cell.enTitleLabel.text = animeSerie.attributes?.titles?.en
         cell.enJpTitleLabel.text = animeSerie.attributes?.titles?.en_jp
         cell.jaTitleLabel.text = animeSerie.attributes?.titles?.ja_jp
         
         return cell
-    }
-}
-
-//MARK: - SerieManagerDelegate
-
-extension AnimesViewController: ApiManagerDelegate{
-    
-    //TODO, Remove
-    func didGetSerie(serie: Serie) {
-        
-    }
-    
-    func didGetSeries(series: [Anime]) {
-        
-        animeSeries = series
-        DispatchQueue.main.async {
-            
-            self.seriesTableView.reloadData()
-    
-        }
-    }
-    
-    func didFailWithError(error: Error) {
-        print(error)
-    }
-}
-
-extension UIImageView {
-    
-    func loadFrom(URLAddress: String) {
-        guard let url = URL(string: URLAddress) else {
-            return
-        }
-        
-        DispatchQueue.main.async { [weak self] in
-            if let imageData = try? Data(contentsOf: url) {
-                if let loadedImage = UIImage(data: imageData) {
-                        self?.image = loadedImage
-                }
-            }
-        }
     }
 }
 
@@ -111,6 +83,6 @@ extension AnimesViewController: UITableViewDelegate {
         
         if let indexPath = seriesTableView.indexPathForSelectedRow {
             destinationVC.serieId = animeSeries[indexPath.row].id
-         }
+        }
     }
 }

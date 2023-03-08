@@ -8,7 +8,7 @@
 import Foundation
 
 struct DetailSerieData: Codable {
-
+    
     let data: Serie
 }
 
@@ -18,7 +18,7 @@ struct Serie: Codable{
 }
 
 struct DetailAttributes: Codable{
-
+    
     let synopsis: String?
     let canonicalTitle: String?
     let startDate: String?
@@ -32,7 +32,7 @@ struct DetailAttributes: Codable{
 }
 
 struct CoverImage: Codable {
-
+    
     let original: String?
 }
 
