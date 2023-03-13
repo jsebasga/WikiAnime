@@ -14,12 +14,15 @@ import Alamofire
 class AnimesViewController: UIViewController {
     
     @IBOutlet weak var seriesTableView: UITableView!
+    @IBOutlet weak var animesActivityIndicator: UIActivityIndicatorView!
     
     var serieManager = ApiManager()
     var animeSeries: [Anime] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        animesActivityIndicator.startAnimating()
         
         seriesTableView.delegate = self
         seriesTableView.dataSource = self
@@ -33,14 +36,30 @@ class AnimesViewController: UIViewController {
         
         serieManager.getAnimesList { animesListData in
             
-            print("*******\(animesListData)")
             self.animeSeries = animesListData.data
             self.seriesTableView.reloadData()
+            self.animesActivityIndicator.stopAnimating()
+            self.animesActivityIndicator.hidesWhenStopped = true
             
         } failure: { error in
             
-            print("******error\(error)")
+            self.animesActivityIndicator.stopAnimating()
+            self.animesActivityIndicator.hidesWhenStopped = true
+            self.displayErrorAlert()
         }
+    }
+    
+    func displayErrorAlert() {
+        let alert = UIAlertController(title: "Oops!",
+                                      message: "Parece que algo no salió bien, por favor intenta de nuevo",
+                                      preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "Reintentar",
+                                      style: UIAlertAction.Style.default,
+                                      handler: {(_: UIAlertAction!) in
+            self.getAnimesList()
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

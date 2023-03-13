@@ -1,7 +1,7 @@
 //
 //  DetailViewController.swift
 //  wikiAnime
-//
+//i
 //  Created by Sebas's Mac on 11/11/22.
 //
 
@@ -18,6 +18,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var duration: UILabel!
     @IBOutlet weak var serieDescription: UILabel!
     @IBOutlet weak var coverImageOriginal: UIImageView!
+    @IBOutlet weak var detailActivityIndicator: UIActivityIndicatorView!
     
     var serieId: String?
     var serieManager = ApiManager()
@@ -25,11 +26,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let animeSerieId = serieId {
-            
-            //serieManager.getAnimeSerie(serieId: animeSerieId)
-            print("******\(animeSerieId)")
-        }
+        detailActivityIndicator.startAnimating()
         
         getSerieDetail()
     }
@@ -40,12 +37,15 @@ class DetailViewController: UIViewController {
             
             serieManager.getAnimeSerie(serieId: animeId) { detailSerieData in
                 
-                print("*******\(detailSerieData)")
+                self.detailActivityIndicator.stopAnimating()
+                self.detailActivityIndicator.hidesWhenStopped = true
                 self.showSerie(serie: detailSerieData.data)
                 
             } failure: { error in
                 
-                print("******\(error)")
+                self.detailActivityIndicator.stopAnimating()
+                self.detailActivityIndicator.hidesWhenStopped = true
+                self.displayErrorAlert()
             }
         }
     }
@@ -113,5 +113,24 @@ class DetailViewController: UIViewController {
             
             self.duration.text = String("\(serieDuration) minutes")
         }
+    }
+    
+    func displayErrorAlert() {
+        let alert = UIAlertController(title: "Oops!",
+                                      message: "Parece que algo no salió bien, por favor intenta de nuevo",
+                                      preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "Volver",
+                                              style: UIAlertAction.Style.default,
+                                              handler: {(_: UIAlertAction!) in
+                    self.navigationController?.popViewController(animated: true)
+                }))
+        
+        alert.addAction(UIAlertAction(title: "Reintentar",
+                                      style: UIAlertAction.Style.default,
+                                      handler: {(_: UIAlertAction!) in
+            self.getSerieDetail()
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
 }
