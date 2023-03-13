@@ -320,6 +320,7 @@
                     <connections>
                         <outlet property="coverImageOriginal" destination="quX-Yh-Nps" id="Y39-pg-HBG"/>
                         <outlet property="detailActivityIndicator" destination="1ql-ac-eQH" id="ft1-3c-bQq"/>
+                        <outlet property="detailScrollView" destination="RRE-uP-qN6" id="d8A-4c-6dv"/>
                         <outlet property="duration" destination="e1F-1U-ze8" id="jK8-Z1-k6g"/>
                         <outlet property="endDate" destination="ovZ-0Q-z9k" id="MvU-SO-jp1"/>
                         <outlet property="nextRelease" destination="NvQ-YS-njl" id="Dtv-fS-W9U"/>

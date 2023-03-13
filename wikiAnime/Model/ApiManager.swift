@@ -10,7 +10,7 @@ import Alamofire
 
 struct ApiManager {
     
-    let animesListURL = "https://kitsu.io/api/edge/anime/"
+    let animesListURL = "https://kitsu.io/api/edged/anime/"
     
     private let kStatusOk = 200...299
     

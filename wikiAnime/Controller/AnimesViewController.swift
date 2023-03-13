@@ -29,6 +29,7 @@ class AnimesViewController: UIViewController {
         seriesTableView.register(UINib(nibName: K.cellNibName, bundle: nil),forCellReuseIdentifier: K.cellIdentifier)
         
         title = "WikiAnime"
+        animesActivityIndicator.hidesWhenStopped = true
         getAnimesList()
     }
     
@@ -39,12 +40,8 @@ class AnimesViewController: UIViewController {
             self.animeSeries = animesListData.data
             self.seriesTableView.reloadData()
             self.animesActivityIndicator.stopAnimating()
-            self.animesActivityIndicator.hidesWhenStopped = true
             
         } failure: { error in
-            
-            self.animesActivityIndicator.stopAnimating()
-            self.animesActivityIndicator.hidesWhenStopped = true
             self.displayErrorAlert()
         }
     }

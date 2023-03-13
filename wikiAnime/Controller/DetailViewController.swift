@@ -19,13 +19,16 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var serieDescription: UILabel!
     @IBOutlet weak var coverImageOriginal: UIImageView!
     @IBOutlet weak var detailActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var detailScrollView: UIScrollView!
     
     var serieId: String?
     var serieManager = ApiManager()
+    var showError = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        detailActivityIndicator.hidesWhenStopped = true
         detailActivityIndicator.startAnimating()
         
         getSerieDetail()
@@ -38,13 +41,12 @@ class DetailViewController: UIViewController {
             serieManager.getAnimeSerie(serieId: animeId) { detailSerieData in
                 
                 self.detailActivityIndicator.stopAnimating()
-                self.detailActivityIndicator.hidesWhenStopped = true
+                self.detailScrollView.isHidden = false
                 self.showSerie(serie: detailSerieData.data)
                 
             } failure: { error in
                 
-                self.detailActivityIndicator.stopAnimating()
-                self.detailActivityIndicator.hidesWhenStopped = true
+                self.detailScrollView.isHidden = true
                 self.displayErrorAlert()
             }
         }
@@ -116,6 +118,7 @@ class DetailViewController: UIViewController {
     }
     
     func displayErrorAlert() {
+        
         let alert = UIAlertController(title: "Oops!",
                                       message: "Parece que algo no salió bien, por favor intenta de nuevo",
                                       preferredStyle: UIAlertController.Style.alert)
