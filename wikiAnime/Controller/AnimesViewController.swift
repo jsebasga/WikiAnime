@@ -15,6 +15,7 @@ class AnimesViewController: UIViewController {
     
     @IBOutlet weak var seriesTableView: UITableView!
     @IBOutlet weak var animesActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var searchTextField: UITextField!
     
     var serieManager = ApiManager()
     var animeSeries: [Anime] = []
@@ -27,10 +28,12 @@ class AnimesViewController: UIViewController {
         seriesTableView.delegate = self
         seriesTableView.dataSource = self
         seriesTableView.register(UINib(nibName: K.cellNibName, bundle: nil),forCellReuseIdentifier: K.cellIdentifier)
+        searchTextField.delegate = self
         
         title = "WikiAnime"
         animesActivityIndicator.hidesWhenStopped = true
         getAnimesList()
+        
     }
     
     func getAnimesList(){
@@ -99,6 +102,58 @@ extension AnimesViewController: UITableViewDelegate {
         
         if let indexPath = seriesTableView.indexPathForSelectedRow {
             destinationVC.serieId = animeSeries[indexPath.row].id
+        }
+    }
+}
+
+//MARK: - UITextFieldDelegate
+
+extension AnimesViewController: UITextFieldDelegate{
+    
+    @IBAction func searchPressed(_ sender: UIButton) {
+        
+        searchTextField.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        searchTextField.endEditing(true)
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+
+        if textField.text != ""{
+
+
+            return true
+
+        } else {
+
+            textField.placeholder = "Type Anime Name"
+            return false
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        guard let searchText = searchTextField.text else {
+            
+            searchTextField.placeholder = "Type Anime Name"
+            return
+        }
+        
+        let search = searchText.replacingOccurrences(of: " ", with: "%20")
+        
+        serieManager.getAnimeListBySearch(animeName: search) { animeData in
+            
+            self.animeSeries = animeData.data
+            self.searchTextField.placeholder = "Search"
+            self.searchTextField.text = ""
+            self.seriesTableView.reloadData()
+            
+        } failure: { error in
+            self.displayErrorAlert()
         }
     }
 }

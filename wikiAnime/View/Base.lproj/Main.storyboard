@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -43,12 +44,42 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="kwm-XQ-3Sk">
+                                <rect key="frame" x="2" y="92" width="410" height="50"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hE3-sP-cBz">
+                                        <rect key="frame" x="0.0" y="0.0" width="358" height="50"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQD-5H-mYa">
+                                        <rect key="frame" x="360" y="0.0" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="7MG-PO-Fkw"/>
+                                            <constraint firstAttribute="width" constant="50" id="kXn-sb-G0t"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <imageReference key="image" image="magnifyingglass" catalog="system" symbolScale="large" renderingMode="hierarchical">
+                                                <hierarchicalColors>
+                                                    <color systemColor="labelColor"/>
+                                                    <color systemColor="secondaryLabelColor"/>
+                                                    <color systemColor="tertiaryLabelColor"/>
+                                                </hierarchicalColors>
+                                            </imageReference>
+                                        </state>
+                                        <connections>
+                                            <action selector="searchPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="x62-qi-UUa"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="iFn-6j-Twr">
-                                <rect key="frame" x="0.0" y="92" width="414" height="770"/>
+                                <rect key="frame" x="2" y="142" width="414" height="754"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="770" id="deG-fU-6ml"/>
-                                </constraints>
                             </tableView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" id="hsh-Jt-El5">
                                 <rect key="frame" x="0.0" y="426" width="414" height="44"/>
@@ -59,17 +90,19 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="hsh-Jt-El5" firstAttribute="centerY" secondItem="iFn-6j-Twr" secondAttribute="centerY" id="6gG-bU-bhP"/>
-                            <constraint firstItem="iFn-6j-Twr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="FrE-fg-drk"/>
-                            <constraint firstItem="hsh-Jt-El5" firstAttribute="centerX" secondItem="iFn-6j-Twr" secondAttribute="centerX" id="Jc5-u7-KHA"/>
-                            <constraint firstItem="iFn-6j-Twr" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="OGq-Mf-Ff3"/>
-                            <constraint firstItem="iFn-6j-Twr" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="hfZ-bA-YaT"/>
-                            <constraint firstItem="iFn-6j-Twr" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="zjo-y3-Z9c"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="kwm-XQ-3Sk" secondAttribute="trailing" constant="2" id="DcF-4s-T3n"/>
+                            <constraint firstItem="iFn-6j-Twr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="2" id="Gf2-JW-guV"/>
+                            <constraint firstItem="iFn-6j-Twr" firstAttribute="top" secondItem="kwm-XQ-3Sk" secondAttribute="bottom" id="KBy-L8-ioI"/>
+                            <constraint firstItem="iFn-6j-Twr" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="2" id="LHU-q9-KzI"/>
+                            <constraint firstItem="kwm-XQ-3Sk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="2" id="S0F-54-raV"/>
+                            <constraint firstAttribute="bottom" secondItem="iFn-6j-Twr" secondAttribute="bottom" id="aSm-62-riD"/>
+                            <constraint firstItem="kwm-XQ-3Sk" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="lzQ-Cd-uWG"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="7e2-vq-hmF"/>
                     <connections>
                         <outlet property="animesActivityIndicator" destination="hsh-Jt-El5" id="8FS-UO-YrW"/>
+                        <outlet property="searchTextField" destination="hE3-sP-cBz" id="Tg4-Ih-UYz"/>
                         <outlet property="seriesTableView" destination="iFn-6j-Twr" id="8zB-PG-U7a"/>
                         <segue destination="xwm-W6-nt5" kind="show" identifier="goToDetail" id="zdh-EP-msN"/>
                     </connections>
@@ -336,8 +369,18 @@
         </scene>
     </scenes>
     <resources>
+        <image name="magnifyingglass" catalog="system" width="128" height="117"/>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="tertiaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29803921568627451" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
