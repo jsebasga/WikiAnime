@@ -148,6 +148,7 @@
 				B782B20129114940007A3F86 /* Frameworks */,
 				B782B20229114940007A3F86 /* Resources */,
 				9150A495E90A3062DE39F0BF /* [CP] Embed Pods Frameworks */,
+				B7691EFA29CE17E40049D00F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -244,6 +245,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-wikiAnime/Pods-wikiAnime-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		B7691EFA29CE17E40049D00F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

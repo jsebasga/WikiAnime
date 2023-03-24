@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct K {
+struct Constants {
     
     static let cellIdentifier = "ReusableCell"
     static let cellNibName = "SerieCell"

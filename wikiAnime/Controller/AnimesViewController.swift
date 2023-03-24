@@ -9,7 +9,7 @@ import UIKit
 import SDWebImage
 import Alamofire
 
-//MARK: - UIViewController
+// MARK: - UIViewController
 
 class AnimesViewController: UIViewController {
     
@@ -22,21 +22,17 @@ class AnimesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         animesActivityIndicator.startAnimating()
-        
         seriesTableView.delegate = self
         seriesTableView.dataSource = self
-        seriesTableView.register(UINib(nibName: K.cellNibName, bundle: nil),forCellReuseIdentifier: K.cellIdentifier)
+        seriesTableView.register(UINib(nibName: Constants.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
         searchTextField.delegate = self
-        
         title = "WikiAnime"
         animesActivityIndicator.hidesWhenStopped = true
         getAnimesList()
-        
     }
     
-    func getAnimesList(){
+    func getAnimesList() {
         
         serieManager.getAnimesList { animesListData in
             
@@ -44,7 +40,7 @@ class AnimesViewController: UIViewController {
             self.seriesTableView.reloadData()
             self.animesActivityIndicator.stopAnimating()
             
-        } failure: { error in
+        } failure: { _ in
             self.displayErrorAlert()
         }
     }
@@ -63,7 +59,7 @@ class AnimesViewController: UIViewController {
     }
 }
 
-//MARK: - UITableViewDataSource
+// MARK: - UITableViewDataSource
 
 extension AnimesViewController: UITableViewDataSource {
     
@@ -72,43 +68,46 @@ extension AnimesViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! SerieCell
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier, for: indexPath) as? SerieCell else {
+            
+            return SerieCell()
+        }
         let animeSerie = animeSeries[indexPath.row]
         
         if let safeTinyImage = animeSerie.attributes?.posterImage?.tiny {
             
             cell.posterImage.sd_setImage(with: URL(string: safeTinyImage))
         }
-        cell.enTitleLabel.text = animeSerie.attributes?.titles?.en
-        cell.enJpTitleLabel.text = animeSerie.attributes?.titles?.en_jp
-        cell.jaTitleLabel.text = animeSerie.attributes?.titles?.ja_jp
-        
+        cell.enTitleLabel.text = animeSerie.attributes?.titles?.englishName
+        cell.enJpTitleLabel.text = animeSerie.attributes?.titles?.japaneseName
+        cell.jaTitleLabel.text = animeSerie.attributes?.titles?.kanjiName
         return cell
     }
 }
 
-//MARK: - UITableViewDelegate
+// MARK: - UITableViewDelegate
 
 extension AnimesViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        performSegue(withIdentifier: K.goToDetail , sender: self)
+        performSegue(withIdentifier: Constants.goToDetail, sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        let destinationVC = segue.destination as! DetailViewController
-        
+        guard let destinationVC = segue.destination as? DetailViewController else {
+            return
+        }
         if let indexPath = seriesTableView.indexPathForSelectedRow {
             destinationVC.serieId = animeSeries[indexPath.row].id
         }
     }
 }
 
-//MARK: - UITextFieldDelegate
+// MARK: - UITextFieldDelegate
 
-extension AnimesViewController: UITextFieldDelegate{
+extension AnimesViewController: UITextFieldDelegate {
     
     @IBAction func searchPressed(_ sender: UIButton) {
         
@@ -122,17 +121,17 @@ extension AnimesViewController: UITextFieldDelegate{
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-
-        if textField.text != ""{
-
-
-            return true
-
-        } else {
-
-            textField.placeholder = "Type Anime Name"
-            return false
+        
+        if let isTextFieldEmpty = textField.text?.isEmpty {
+            
+            if isTextFieldEmpty {
+                textField.placeholder = "Type Anime Name"
+                return false
+            } else {
+                return true
+            }
         }
+        return false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -152,7 +151,7 @@ extension AnimesViewController: UITextFieldDelegate{
             self.searchTextField.text = ""
             self.seriesTableView.reloadData()
             
-        } failure: { error in
+        } failure: { _ in
             self.displayErrorAlert()
         }
     }

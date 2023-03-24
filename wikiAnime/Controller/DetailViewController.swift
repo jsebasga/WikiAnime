@@ -1,7 +1,6 @@
 //
 //  DetailViewController.swift
 //  wikiAnime
-//i
 //  Created by Sebas's Mac on 11/11/22.
 //
 
@@ -34,7 +33,7 @@ class DetailViewController: UIViewController {
         getSerieDetail()
     }
     
-    func getSerieDetail(){
+    func getSerieDetail() {
         
         if let animeId = serieId {
             
@@ -44,7 +43,7 @@ class DetailViewController: UIViewController {
                 self.detailScrollView.isHidden = false
                 self.showSerie(serie: detailSerieData.data)
                 
-            } failure: { error in
+            } failure: { _ in
                 
                 self.detailScrollView.isHidden = true
                 self.displayErrorAlert()
@@ -52,9 +51,9 @@ class DetailViewController: UIViewController {
         }
     }
     
-    func showSerie(serie:Serie){
+    func showSerie(serie: Serie) {
         
-        //Valida coverImage
+        // Validate coverImage
         if let coverImage = serie.attributes.coverImage?.original {
             
             self.coverImageOriginal.sd_setImage(with: URL(string: coverImage))
@@ -64,53 +63,53 @@ class DetailViewController: UIViewController {
             self.coverImageOriginal.sd_setImage(with: URL(string: posterImage))
         }
         
-        //Valida title
+        // Validate title
         if let serieTitle = serie.attributes.canonicalTitle {
             
             self.title = serieTitle
         }
         
-        //Valida initialDate
+        // Validate initialDate
         if let initialDate = serie.attributes.startDate {
             
             self.startDate.text = initialDate
         }
         
-        //Valida finalDate
+        // Validate finalDate
         if let finalDate = serie.attributes.endDate {
             
             self.endDate.text = finalDate
             
         } else {
             
-            self.endDate.text = K.finalDate
+            self.endDate.text = Constants.finalDate
         }
         
-        //Valida status
+        // Validate status
         if let animeStatus = serie.attributes.status {
             
             self.serieStatus.text = animeStatus
         }
         
-        //Valida description
+        // Validate description
         if let animeDescription = serie.attributes.synopsis {
             
             self.serieDescription.text = animeDescription
         }
         
-        //Valida nextRelease
+        // Validate nextRelease
         if let nextEpisode = serie.attributes.nextRelease {
             
             self.nextRelease.text = nextEpisode
         }
         
-        //Valida numberEpisode
+        // Validate numberEpisode
         if let espisodeNumber = serie.attributes.episodeCount {
             
             self.numberEpisode.text = String("\(espisodeNumber) espisodes")
         }
         
-        // Valida duration
+        // Validate duration
         if let serieDuration = serie.attributes.episodeLength {
             
             self.duration.text = String("\(serieDuration) minutes")

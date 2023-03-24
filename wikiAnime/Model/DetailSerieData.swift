@@ -12,12 +12,12 @@ struct DetailSerieData: Codable {
     let data: Serie
 }
 
-struct Serie: Codable{
+struct Serie: Codable {
     
     let attributes: DetailAttributes
 }
 
-struct DetailAttributes: Codable{
+struct DetailAttributes: Codable {
     
     let synopsis: String?
     let canonicalTitle: String?

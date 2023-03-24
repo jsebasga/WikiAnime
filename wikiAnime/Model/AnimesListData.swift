@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AnimesListData: Codable{
+struct AnimesListData: Codable {
     
     let data: [Anime]
 }
@@ -20,17 +20,23 @@ struct Anime: Codable {
     
 }
 
-struct Attributes: Codable{
+struct Attributes: Codable {
     
-    let titles:Title?
+    let titles: Title?
     let posterImage: PosterImage?
 }
 
 struct Title: Codable {
     
-    let en: String?
-    let en_jp: String?
-    let ja_jp: String?
+    let englishName: String?
+    let japaneseName: String?
+    let kanjiName: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case englishName = "en"
+        case japaneseName = "en_jp"
+        case kanjiName = "ja_jp"
+    }
 }
 
 struct PosterImage: Codable {
