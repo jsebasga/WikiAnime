@@ -19,7 +19,8 @@ class AnimesViewController: UIViewController {
     
     var serieManager = ApiManager()
     var animeSeries: [Anime] = []
-    
+    let refreshControl = UIRefreshControl()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         animesActivityIndicator.startAnimating()
@@ -30,6 +31,16 @@ class AnimesViewController: UIViewController {
         title = "WikiAnime"
         animesActivityIndicator.hidesWhenStopped = true
         getAnimesList()
+        
+        // RefreshControl
+        refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        seriesTableView.addSubview(refreshControl)
+    }
+
+    @objc func refresh(send: UIRefreshControl) {
+        
+        self.getAnimesList()
+        self.refreshControl.endRefreshing()
     }
     
     func getAnimesList() {
